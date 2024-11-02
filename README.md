@@ -2,15 +2,15 @@
 # Program: make_canned_documentation
 
 1. Problem definition
-2. High-level architecture
-3. Data structures
-4. Algorithms
-5. Function/method signatures
-6. Error handling
-7. Testing strategy
-8. Code organization
-9. Naming conventions
-10. External dependencies
+2. High-level architecture - TODO
+3. Data structures - TODO
+4. Algorithms - TODO
+5. Function/method signatures - TODO
+6. Error handling - TODO
+7. Testing strategy - TODO
+8. Code organization - TODO
+9. Naming conventions - TODO
+10. External dependencies - TODO
 11. Performance considerations - TODO
 12. Scalability - TODO
 13. Security considerations - TODO
@@ -21,7 +21,7 @@
 
 ## Objective: Create a documentation generator that converts natural language program descriptions into standardized technical documentation suitable for both human and AI implementation, with specific focus on reproducibility and completeness.
 
-## Inputs
+## Input
 - Description: String containing program requirements
 - Format: Plain text, UTF-8 encoded
 - Delivery: Via API endpoint, terminal input, or uploaded file of arbitrary type (text, json, etc.)
@@ -29,17 +29,26 @@
 - Descriptiveness: Arbitrary
 - Description Format: Arbitrary
 - Language: English, with support for non-English inputs
-- Input Validation 
-    1. Input must be a string of non-zero length. If the input is empty, the program should return an error message indicating that the input is invalid.
-    2. Input must be in a supported format (plain text, UTF-8 encoded). If the input is in an unsupported format, the program should return an error message indicating that the input format is unsupported.
-- Maximum Size Limits: 10 MB per input. If the input exceeds this limit, the program should return an error message indicating that the input is too large.
-- 
+- Maximum Size Limits: 4096 tokens. If the input exceeds this limit, the program should return an error message indicating that the input is too large.
+- Required Inputs: A string containing program requirements.
+- Optional Inputs: None
 
-## Example Inputs
+### Input Validation 
+- 1. Input must be a string of non-zero length. If the input is empty, the program should return an error message indicating that the input is invalid.
+- 2. Input must be in a supported format (plain text, UTF-8 encoded). If the input is in an unsupported format, the program should return an error message indicating that the input format is unsupported.
+- 3. Input must be within the maximum size limit. If the input exceeds this limit, the program should return an error message indicating that the input is too large.
+- 4. Input must in intelligible language (e.g. not gibberish, ASCII art, etc.). If the input is not intelligible, the program should return an error message indicating that the input is not intelligible.
+
+### Input Sanitization Requirements
+- Remove any non-text characters (e.g. images, emojis, etc.)
+- Trim leading/trailing whitespace. 
+- If the input is not in UTF-8 encoding, the program should attempt to convert it to UTF-8 encoding. If the conversion fails, the program should return an error message indicating that the input encoding is unsupported.
+
+### Example Inputs
 - 1. "Calendar scheduler."
 - 2. "I wanna know what people think based on their Facebook posts."
-- 3. "Create a web scraper that can extract user data from Linkedin profiles. The data should include the user's name, job title, company, location, and education in JSON format. It should follow ethical webscraping practices and respect user privacy."
-- 4. "Make me a fucking sandwich."
+- 3. "Create a web scraper that can extract user data from Linkedin profiles. The data should include the user's name, job title, company, location, and education in JSON format. It should follow ethical web-scraping practices and respect user privacy."
+- 4. "Make me a sandwich yesterday."
 - 5. "Objective: Develop a machine learning model to predict stock prices based on historical data. 
     Constraints:
     \1. The model should take into account various factors such as volume, price, and sentiment analysis of news articles. 
@@ -55,40 +64,173 @@
 
 ## Outputs
 - Description: Software documentation files, each containing a specific aspect of the software's design and implementation.
-- Format: GitHub-style Markdown files, UTF-8 encoded
-- Delivery: Downloadble files of a specified format (zip, tar, etc.), either via API endpoint or uploaded to a specified location (e.g. GitHub repository, Google Drive, Selected Folder etc.)
+- Format
+    - 1. GitHub-style Markdown files, UTF-8 encoded
+    - 2. Valid GitHub Markdown syntax
+    - 3. Function/Method signatures with Google-style docstrings.
+    - 4. Code snippets (when needed) in code block format.
+    - 5. Diagrams (when needed) in Mermaid syntax.
+    - 6. Math equations (when needed) in LaTeX syntax.
+- Delivery: Downloadable files of a specified format (zip, tar, etc.), either via API endpoint or uploaded to a specified location (e.g. GitHub repository, Google Drive, Selected Folder, etc.)
 - Length of Documents: Arbitrary
-- Descriptiveness of Documents: Comprehensive and detailed
-- Language: English, with support for non-English outputs
+- Descriptiveness of Documents: Comprehensive and detailed.
+- Language: English, with support for non-English outputs.
+- Minimum Size: 
+    - 1. 4 documents (PRD, Architecture, Data Structures, Style)
+    - 2. Able to generate additional docs as needed or requested, including but not limited to:
+        - Algorithms
+        - Function/method signatures
+        - Error handling
+        - Testing strategy
+        - Code organization 
+        - Naming conventions
+        - External dependencies, 
+        - Performance considerations
+        - Scalability
+        - Security considerations
+- Error Handling
+    - 1. If the program encounters an error, it should return an error message indicating the nature of the error. 
+    - 2. If the error is recoverable, the program should attempt to recover from the error. 
+    - 3. If the error is not recoverable, the program should terminate and return an error message indicating that the program could not generate the documentation.
+- Version Control: The program should support version control, allowing the user to view and compare different versions of the documentation. This can be done by storing the documentation in a Git repository, or by using a version control system such as Git, Mercurial, or SVN. The program should also allow the user to specify a version control system to use. The default will be GitHub if none is specified.
+
+### Outputs Success Criteria
+- 1. The 4 core documents are generated.
+- 2. Each core documents has the correct subsections, format, and thoroughness.
+- 3. Each core document is accurate to its purpose, as determined by the user and/or using the LLM's own judgement.
+- 4. Each core document meets the specified constraints as listed in the constraints section of this README.
+
 
 ## Constraints:
 1. Comprehensiveness
-    - Documentation must be detailed enough to enable a programmer to completely and faithfully reproduce a program tha matches the input requirements with either minimal or no additional information.
-2. Hiearcical structure
-    - Documentation must be structured in a hierarchical manner, with clear section delineations, consistent formatting patterns, standard templating, and logical flow of information.
+    - Documentation must be detailed enough to enable a programmer to completely and faithfully reproduce a program that matches the input requirements with either minimal or no additional information.
+2. User Involvement Agnostic
+    - Program should default to documentation being generated without requiring user interference beyond the input. 
+    - The program should allow for user input and feedback during the documentation generation process to clarify ambiguities or provide additional information. 
+    - The program should allow for user input and feedback to override the default behavior of the program to generate documentation that meets the user's specific needs or correct mistakes made by the program.
+2. Hierarchical structure
+    - Documentation must be structured in a hierarchical manner.
+    - Each document should have a clear purpose and scope.
+    - Clear section delineations.
+    - Standardized templating and formatting patterns
+    - Logical flow of information.
 3. LLM as first class citizen
-    - Documentation must take into account context window limitations, token count constraints, required formatting/prompting constraints, and handling of code blocks and special characters.
+    - Written with context window and token count limitations.
+    - Formatting/prompting constraints that adhere to 3rd party LLM APIs (e.g. OpenAI, Anthropic, Mistral, etc.).
+    - Able to handle multiple LLM calls to generate documentation.
+    - Respect LLM refusals to generate documentation based on their alignment or safety policies.
+    - Special handling of code blocks, special characters, diagrams, and math equations.
 4. Semantic Clarity
-    - Documentation must include a step-by-step breakdown of complex operations, avoid ambiguous language, use consistent termanology, and provide explicit relationships between components.
+    - Must include a step-by-step breakdown of complex operations.
+    - Avoid ambiguous and overly complicated language.
+    - Use consistent terminology.
+    - Provide explicit relationships between components.
 5. Validation Checkpoints
-    - Unit test descriptions at key points and with expected intermediate outpoints, error detection and handling, and progress verification steps.
+    - Unit test descriptions at key points along with expected intermediate outpoints.
+    - Error detection and handling at the function/method level.
+    - Progress verification steps for each document.
+    - Optional logging and debugging features to aid in troubleshooting and verification.
 6. Memory Management
-    - Program must be able to break down document generation into digestible chunks, manage documentation state across multiple LLM calls, handle cross-references between sections, and provide progressive disclosure of implementation details.
+    - Able to break down document generation into discrete steps or chunks.
+    - Manage documentation state across multiple LLM calls.
+    - Handle cross-references between sections and documents.
+    - Progressive disclosure of implementation details as documentation advances from foundational to specific elements.
 7. Error Recovery
-    - Program must be able to detect when an LLM misunderstand or fails, have programatic fallback strategies and self-corretion mechanisms, and provide verification steps between major components.
+    - Able to detect when an LLM misunderstands, hallucinates, or fails outright.
+    - Programmatic fallback strategies and self-correction mechanisms.
+    - Programmatic and/or User verification steps between major components.
+    - Ability to regenerate output on user request.
+8. Resource Usage.
+    - Efficient use of LLM resources (tokens, context window, etc.)
+    - Minimize unnecessary LLM calls
+    - Cache and reuse intermediate results
+    - Optimize prompting strategies for efficient information retrieval and generation.
+    - Minimize cost in time and money per document generated, with a preference for cost.
+    - Maximum and minimum values for metrics to be determined based on testing and user feedback.
+9. Scalability
+    - Able to handle large software projects with numerous and complex documentation needs.
+    - Able to handle multiple software projects concurrently.
+10. Flexibility
+    - Able to work as a standalone program, as an API, or as part of a larger software pipeline.
+12. Dependencies
+    - Able to work with a wide range of third-party libraries and tools, including but not limited to:
+        - 1. Required
+            - GitHub (for version control and hosting the documentation)
+            - OpenAI, Anthropic, Mistral, etc. (for LLM services)
+            - PyTest, JUnit, etc. (for unit testing)
+            - Sphinx, Doxygen, etc. (for documentation generation)
+        - 2. Optional
+            - Docker (for containerization and deployment)
+            - Kubernetes (for orchestration and scaling)
+            - Augmentoolkit, Socialtoolkit (for synthetic dataset creation and annotation)
+13. System Requirements
+    - Able to run on a standard desktop or laptop computer with a modern operating system (Windows, MacOS, Linux).
+14. Recovery and Rollback
 
-## Specifications
+## Scope
+1. The program should:
+    - Phased implementation, with the first phasing focusing on:
+        - 1. Python and 3-tier architecture documentation
+        - 2. Preference for Agile and Object-oriented programming styles.
+    - Later phases should be able to generate documentation for a wide range of software projects, including but not limited to:
+        - 1. Web applications
+        - 2. Mobile applications
+        - 3. Desktop applications
+        - 4. Command-line applications.
+    - Support common general and domain-specific programming languages, including but not limited to:
+        - 1. General Purpose: Python, Java, C++, C#, JavaScript, TypeScript, Go, Rust, Swift
+        - 2. Domain-Specific: MySQL and other SQL dialects, R, STATA, and MatLab.
+    - Support common software architectures, including but not limited to:
+        - 1. Monolithic (e.g. single-tier, three-tier, etc.)
+        - 2. Microservices (e.g. service-oriented, event-driven, etc.)
+        - 3. Serverless (e.g. AWS Lambda, Google Cloud Functions, etc.)
+        - 4. Cloud-native (e.g. Kubernetes, Docker, etc.)
+        - 5. Edge computing (e.g. IoT, fog computing, etc.)
+    - Support mainstream software development methodologies, including but not limited to:
+        - 1. Agile (e.g. Scrum, Kanban, etc.)
+        - 2. Waterfall (e.g. SDLC, V-model, etc.)
+        - 3. Lean (e.g. Lean Startup, Lean Software Development, etc.)
+        - 4. DevOps (e.g. CI/CD, Infrastructure as Code, etc.)
+        - 5. Test-Driven Development (TDD)
+    - Support a wide range of programming styles, including but not limited to:
+        - 1. Object-oriented programming (OOP)
+        - 2. Functional programming (FP)
+        - 3. Procedural programming (PP)
+        - 4. Event-driven programming (EDP)
+        - 5. Reactive programming (RP)
+        - 6. Asynchronous programming (AP)
+    - Select a language(s), architecture, development methodology, and programming style that complement and are coherent with one another.
+2. The program should not:
+    - Support documentation for hardware projects, including but not limited to:
+        - 1. Electronic circuits 
+        - 2. Mechanical designs
+        - 3. Embedded systems.
+    - Support documentation for non-software projects, including but not limited to:
+        - 1. Business plans
+        - 2. Research papers
+        - 3. Technical reports.
+    - Support documentation for projects that are not written in a programming language,including but not limited to:
+        - 1. Visual design projects
+        - 2. UX/UI projects
+        - 3. Data analysis projects.
+    - Create the software itself.
+
+## Timeline
+- Phased development
+    - Phase 1: Python and 3-tier architecture documentation (MVP) - 6 months
+    - Phase 2: Expand to other programming languages and architectures - 12 months
+    - Phase 3: Expand to other software development methodologies and programming styles - 18 months
+
+
+### TODO: Check to see what Codestral hallucinated. There's a lot of jargon here.
+
+
+## Core Output Specifications
 - Markdown documentation files should consist of the following:
 - 1. PRD.md (Product Requirements Document)
     - Overview of the program, its purpose, and its intended functionality.
     - User stories, use cases, and acceptance criteria.
 
-- Format Requirements:
-  - Valid GitHub Markdown syntax
-  - Hierarchical structure
-  - Code snippets (when needed) in code block format.
-  - Diagrams (when needed) in Mermaid syntax.
-  - Math equations (when needed) in LaTeX syntax.
 
 
 
