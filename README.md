@@ -195,7 +195,7 @@ Note: Readability is calculated programmatically based on a Flesch-Kincaid reada
      ```
 
 ### 1.10.2 Example Output
-```markdown
+```text
 # MyPythonApp
 Version: 1.0.0
 Authors: John Doe, Claude 3.5 Sonnet
