@@ -12,7 +12,7 @@ Version: 0.1.1
 # 1. Problem Definition
 
 ## 1.1 Objective
-Create a software documentation generator that converts natural language program descriptions into standardized technical documentation suitable for both human and AI implementation, with specific focus on reproducibility and completeness.
+Create a software documentation generator that converts natural language program descriptions into standardized technical documentation suitable for both human and AI implementation, with specific focus on exact reproducibility and completeness.
 
 ## 1.2 Input Specifications
 | Attribute        | Specification                                       | Bounds/Constraints                      |
@@ -104,8 +104,7 @@ Documentation Quality is an average of the following metrics, each weighted acco
 | Completeness                  | All required sections present and filled                                      | >= 90%    | >= 95%  | 15%    |
 | Format Compliance             | Format follows the requirements in section 1.4.3 'Output Format Requirements' | >= 90%    | >= 95%  | 8%     |
 
-Each document is scored by an LLM on a section-by-section basis based on a pass/fail judgement. Rubrics for these metrics are in the prompts folder.
-Note: Readability is calculated programmatically based on a Flesch-Kincaid readability test.
+Each document is scored by an advanced LLM (e.g. GPT4, Claude 3.5 Sonnet, etc.) on a section-by-section basis based on a pass/fail judgement. Rubrics for these metrics are in the prompts folder. Readability is calculated programmatically based on a Flesch-Kincaid readability test. All metrics are normalized to [0-1] before weights are applied.
 
 ### 1.5.2 Feature Priority Matrix
 | Feature                 | Priority | Phase | Success Criteria                 |
@@ -124,7 +123,7 @@ Note: Readability is calculated programmatically based on a Flesch-Kincaid reada
 2. Error Recovery
    - Automatic retry on API failures
    - Fallback to cached results
-   - Manual override options
+   - Manual override options for LLM generation
 
 ## 1.7 Version Control
 1. Documentation Versioning
@@ -155,7 +154,7 @@ Note: Readability is calculated programmatically based on a Flesch-Kincaid reada
 
 ## 1.9 Constraints
 1. Technical Constraints
-   - Token limits (4096 per API call)
+   - Context size limits (4096 tokens per API call)
    - API rate limits
    - Memory usage limits
    - Network bandwidth limits
@@ -172,8 +171,7 @@ Note: Readability is calculated programmatically based on a Flesch-Kincaid reada
 
 4. Ethical Constraints
    - AI alignment policies
-   - Hippocratic oath policies
-   - License compatibility
+   - Hippocratic oath principal
 
 ## 1.10 Example Input and Output
 ### 1.10.1 Example Inputs

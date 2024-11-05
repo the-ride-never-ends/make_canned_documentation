@@ -1,0 +1,20 @@
+[submodule “config”]
+path = config/
+url = https://github.com/the-ride-never-ends/config
+branch = make_canned_documentation
+
+[submodule “utils”]
+path = utils/
+url = https://github.com/the-ride-never-ends/utils
+branch = make_canned_documentation
+
+[submodule “logger”]
+path = logger/
+url = https://github.com/the-ride-never-ends/logger
+branch = make_canned_documentation
+
+[submodule "llm_engine”]
+path = llm_engine/
+url = https://github.com/the-ride-never-ends/llm_engine
+branch = make_canned_documentation
+
