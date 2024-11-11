@@ -7,7 +7,7 @@ Version: 0.1.1
 3. System Requirements
 4. Constraints
 5. Implementation Phases
-6. [Future sections to be completed]
+6. Dependencies
 
 # 1. Problem Definition
 
@@ -152,6 +152,7 @@ Each document is scored by an advanced LLM (e.g. GPT4, Claude 3.5 Sonnet, etc.) 
 | Python    | 3.10+            |
 | Git       | 2.0+             |
 
+
 ## 1.9 Constraints
 1. Technical Constraints
    - Context size limits (4096 tokens per API call)
@@ -172,7 +173,6 @@ Each document is scored by an advanced LLM (e.g. GPT4, Claude 3.5 Sonnet, etc.) 
 4. Ethical Constraints
    - AI alignment policies
    - Hippocratic oath principal
-
 
 
 ## 1.10 Example Input and Output
@@ -204,3 +204,92 @@ Authors: John Doe, Claude 3.5 Sonnet
 Three-tier Python application demonstrating Agile methodology...
 [Additional sections follow standard template]
 ```
+
+## 1.11 Scope Definition
+
+### 1.11.1 Minimum Viable Product (MVP)
+| Feature            | Description                          | Success Criteria                                                                                          |
+|--------------------|--------------------------------------|-----------------------------------------------------------------------------------------------------------|
+| Basic Doc Creation | Create README.md and PRD.md only     | - Successfully makes both docs <br>- Meets quality metrics (Section 1.5.2)<br>- Completes in < 5 minutes |
+| Single Language    | English-only input/output            | - Correctly processes English text <br>- Rejects non-English inputs                                       |
+| File Input         | .txt and .md file processing         | - Successfully reads both file types <br>- Handles UTF-8 encoding                                         |
+| Error Handling     | Input validation and error reporting | - Catches and reports common errors <br>- Provides clear error messages                                   |
+
+## 1.11.2 Explicitly Out of Scope
+| Feature                      | Description                                                                                                |
+|------------------------------|------------------------------------------------------------------------------------------------------------|
+| Real-time Documentation      | - Live document updates <br>- Websocket connections <br>- Real-time collaboration                          |
+| Advanced Features            | - Code generation <br>- Test case generation <br>- Automated implementation <br>- Custom template creation |
+| Integration Features         | - CI/CD pipeline integration <br>- IDE plugins <br>- Direct repository management                          |
+| Authentication/Authorization | - User management <br>- Role-based access <br>- Multi-tenant support                                       |
+
+
+## 1.11 Dependencies
+
+### 1.11.1 External Services
+TODO: GO through all of these and make sure they're correct. 
+This seems like the perfect spot for an LLM to hallucinate things.
+
+| Service    | Purpose                       | Min Version | Alternatives           | Criticality |
+|------------|-------------------------------|-------------|------------------- ----|-------------|
+| OpenAI API | Core documentation generation | GPT-4       | Claude, PaLM           | Critical    |
+| GitHub API | Version control integration   | v3          | GitLab API             | Important   |
+| MySQL API  | Document storage and backup   | Latest      | Azure Blob, AWS S3/GCS | Important   |
+
+### 1.11.2 Python Libraries
+| Library       | Purpose                             | Min Version | License | Updates    |
+|---------------|-------------------------------------|-------------|---------|------------|
+| augmentoolkit | LLM orchestration                   | 0.1.0       | MIT     | Monthly    |
+| numpy         | Numerical computations              | 1.24.0      | BSD     | Quarterly  |
+| pandas        | Data manipulation                   | 2.0.0       | BSD     | Quarterly  |
+| fastapi       | API framework                       | 0.100.0     | MIT     | Monthly    |
+| pydantic      | Data validation                     | 2.0.0       | MIT     | Monthly    |
+| pytest        | Testing framework                   | 7.0.0       | MIT     | Quarterly  |
+
+### 1.11.3 Development Tools
+| Tool           | Purpose                             | Min Version | Required    |
+|----------------|-------------------------------------|-------------|-------------|
+| Poetry         | Dependency management               | 1.5.0       | Yes         |
+| Pre-commit     | Git hooks                           | 3.3.0       | Yes         |
+| Black          | Code formatting                     | 23.3.0      | Yes         |
+| Ruff           | Linting                             | 0.1.0       | Yes         |
+| mypy           | Type checking                       | 1.4.0       | Yes         |
+
+### 1.11.4 Dependency Management
+1. Version Control
+   - Strict semantic versioning
+   - Lock file maintenance
+   - Automated dependency updates via Dependabot
+
+2. Security
+   - Weekly vulnerability scanning
+   - License compliance checking
+   - SBOM generation
+
+3. Performance Impact
+   - Maximum total package size: 100MB
+   - Maximum cold start time: 5s
+   - Maximum memory overhead: 500MB
+
+### 1.11.5 Fallback Strategies
+| Dependency     | Fallback Strategy                   | Data Migration | Recovery Time |
+|----------------|-------------------------------------|----------------|---------------|
+| OpenAI API     | Switch to Claude API                | Not needed     | < 5 minutes   |
+| GitHub API     | Local Git operations                | Manual sync    | < 30 minutes  |
+| FastAPI        | Fallback to Flask                   | Not needed     | < 60 minutes  |
+
+### 1.11.6 Dependency Update Policy
+1. Critical Updates
+   - Security patches: Immediate deployment
+   - Bug fixes: Within 24 hours
+   - Feature updates: Monthly review
+
+2. Non-Critical Updates
+   - Scheduled monthly updates
+   - Tested in staging environment
+   - Rollback plan required
+
+3. Update Verification
+   - Automated testing suite
+   - Integration test coverage
+   - Performance benchmark comparison
