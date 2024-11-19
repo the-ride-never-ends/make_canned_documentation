@@ -60,7 +60,9 @@ See mermaid graph in architecture_diagram.md
    - WHY: Supports version control requirements (Source: README.md, Section 1.5.2 'Feature Priority Matrix')
    - WHY: Enables consistent backup/recovery
 
+
 ## 1.4 Essential Characteristics
+
 
 ## 1.5 Critical Paths
 
@@ -77,10 +79,23 @@ Bottleneck: LLM evaluation
 Recovery: LLM Generation Retry, Manual override
 
 
+# 2. Component Architecture
 
 
+# 3. Technology Stack
 
 
+# 4. System Interfaces
 
 
+# 5. Data Architecture
+
+
+# 6. Infrastructure
+
+
+# 7. Cross-Cutting Concerns
+
+
+# 8. Constraints & Limitations
 
